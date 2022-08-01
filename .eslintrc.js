@@ -1,4 +1,4 @@
-const prettierConfig = require('./.prettierrc.js')
+const prettierConfig = require('./.prettierrc.js');
 
 module.exports = {
   parser: 'babel-eslint',
@@ -14,7 +14,7 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: ['airbnb', 'prettier', 'prettier/react', 'plugin:storybook/recommended', 'plugin:storybook/recommended'],
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': [2, prettierConfig],
@@ -25,10 +25,9 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react/prefer-stateless-function': 0,
     'react/destructuring-assignment': 0,
-    'import/no-extraneous-dependencies': [
-      'error',
-      { devDependencies: ['stories/**/*'] }
-    ],
+    'import/no-extraneous-dependencies': ['error', {
+      devDependencies: ['stories/**/*']
+    }],
     'jsx-a11y/mouse-events-have-key-events': 0
   },
   settings: {
@@ -36,4 +35,4 @@ module.exports = {
       version: 'detect'
     }
   }
-}
+};
