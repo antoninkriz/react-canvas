@@ -7,7 +7,7 @@ const HostText = 6
 const randomKey = Math.random()
   .toString(36)
   .slice(2)
-const internalInstanceKey = `__reactInternalInstance$${randomKey}`
+const internalInstanceKey = `__reactFiber$${randomKey}`
 
 /**
  * Given a DOM node, return the closest ReactDOMComponent or

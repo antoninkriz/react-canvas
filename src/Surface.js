@@ -103,11 +103,14 @@ class Surface extends React.Component {
   getLayer = () => this.node
 
   getContext = () => {
-    return this.canvas.getContext('2d')
+    return this.canvas?.getContext('2d')
   }
 
   scale = () => {
-    this.getContext().scale(this.props.scale, this.props.scale)
+    const ctx = this.getContext()
+    if (ctx) {
+      ctx.scale(this.props.scale, this.props.scale)
+    }
   }
 
   batchedTick = () => {
@@ -137,7 +140,10 @@ class Surface extends React.Component {
   }
 
   clear = () => {
-    this.getContext().clearRect(0, 0, this.props.width, this.props.height)
+    const ctx = this.getContext()
+    if (ctx) {
+      ctx.clearRect(0, 0, this.props.width, this.props.height)
+    }
   }
 
   draw = () => {
@@ -145,7 +151,9 @@ class Surface extends React.Component {
       if (this.props.enableCSSLayout) {
         layoutNode(this.node)
       }
-      drawRenderLayer(this.getContext(), this.node)
+
+      const ctx = this.getContext()
+      if (ctx) drawRenderLayer(ctx, this.node)
     }
   }
 
@@ -156,44 +164,6 @@ class Surface extends React.Component {
     const hitTarget = hitTest(e, this.node, this.canvas)
     if (hitTarget) {
       hitTarget[hitTest.getHitHandle(e.type)](e)
-    }
-  }
-
-  handleTouchStart = e => {
-    const hitTarget = hitTest(e, this.node, this.canvas)
-
-    let touch
-    if (hitTarget) {
-      // On touchstart: capture the current hit target for the given touch.
-      this._touches = this._touches || {}
-
-      for (let i = 0, len = e.touches.length; i < len; i++) {
-        touch = e.touches[i]
-        this._touches[touch.identifier] = hitTarget
-      }
-      hitTarget[hitTest.getHitHandle(e.type)](e)
-    }
-  }
-
-  handleTouchMove = e => {
-    this.hitTest(e)
-  }
-
-  handleTouchEnd = e => {
-    // touchend events do not generate a pageX/pageY so we rely
-    // on the currently captured touch targets.
-    if (!this._touches) {
-      return
-    }
-
-    let hitTarget
-    const hitHandle = hitTest.getHitHandle(e.type)
-    for (let i = 0, len = e.changedTouches.length; i < len; i++) {
-      hitTarget = this._touches[e.changedTouches[i].identifier]
-      if (hitTarget && hitTarget[hitHandle]) {
-        hitTarget[hitHandle](e)
-      }
-      delete this._touches[e.changedTouches[i].identifier]
     }
   }
 
@@ -285,10 +255,6 @@ class Surface extends React.Component {
       width,
       height,
       style,
-      onTouchStart: this.handleTouchStart,
-      onTouchMove: this.handleTouchMove,
-      onTouchEnd: this.handleTouchEnd,
-      onTouchCancel: this.handleTouchEnd,
       onMouseDown: this.handleMouseEvent,
       onMouseUp: this.handleMouseEvent,
       onMouseMove: this.handleMouseEvent,

@@ -1,12 +1,7 @@
 import React from 'react'
 import invariant from 'invariant'
 import ReactFiberReconciler from 'react-reconciler'
-import {
-  unstable_now as now,
-  unstable_shouldYield as shouldYield,
-  unstable_scheduleCallback as scheduleDeferredCallback,
-  unstable_cancelCallback as cancelDeferredCallback
-} from 'scheduler'
+import { DefaultEventPriority } from 'react-reconciler/constants'
 import { emptyObject } from './utils'
 import Gradient from './Gradient'
 import Text from './Text'
@@ -56,6 +51,26 @@ const freeComponentAndChildren = c => {
 }
 
 const CanvasHostConfig = {
+  supportsHydration: false,
+  supportsPersistence: true,
+  cancelTimeout: clearTimeout,
+  scheduleTimeout: setTimeout,
+  noTimeout: -1,
+  detachDeletedInstance() {},
+  getInstanceFromScope() {
+    return null
+  },
+  preparePortalMount() {},
+  afterActiveInstanceBlur() {},
+  beforeActiveInstanceBlur() {},
+  getCurrentEventPriority() {
+    return DefaultEventPriority
+  },
+  getInstanceFromNode() {
+    return undefined
+  },
+  prepareScopeUpdate() {},
+  clearContainer() {},
   appendInitialChild(parentInstance, child) {
     if (typeof child === 'string') {
       // Noop for string children of Text (eg <Text>{'foo'}{'bar'}</Text>)
@@ -100,7 +115,7 @@ const CanvasHostConfig = {
   },
 
   prepareForCommit() {
-    // Noop
+    return null
   },
 
   prepareUpdate(/* domElement, type, oldProps, newProps */) {
@@ -108,10 +123,6 @@ const CanvasHostConfig = {
   },
 
   resetAfterCommit() {
-    // Noop
-  },
-
-  resetTextContent(/* domElement */) {
     // Noop
   },
 
@@ -127,23 +138,13 @@ const CanvasHostConfig = {
     return emptyObject
   },
 
-  scheduleDeferredCallback,
-
-  cancelDeferredCallback,
-
-  shouldYield,
-
   shouldSetTextContent(type, props) {
     return (
       typeof props.children === 'string' || typeof props.children === 'number'
     )
   },
 
-  now,
-
   isPrimaryRenderer: false,
-
-  useSyncScheduling: true,
 
   supportsMutation: true,
 
@@ -197,14 +198,6 @@ const CanvasHostConfig = {
     child.getLayer().remove()
     freeComponentAndChildren(child)
     parentLayer.invalidateLayout()
-  },
-
-  commitTextUpdate(/* textInstance, oldText, newText */) {
-    // Noop
-  },
-
-  commitMount(/* instance, type, newProps */) {
-    // Noop
   },
 
   commitUpdate(instance, updatePayload, type, oldProps, newProps) {
