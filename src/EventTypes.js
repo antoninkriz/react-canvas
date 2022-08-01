@@ -1,5 +1,9 @@
 // Supported events that RenderLayer's can subscribe to.
 
+const onTouchStart = 'touchstart'
+const onTouchMove = 'touchmove'
+const onTouchEnd = 'touchend'
+const onTouchCancel = 'touchcancel'
 const onMouseDown = 'mousedown'
 const onMouseUp = 'mouseup'
 const onMouseMove = 'mousemove'
@@ -10,6 +14,10 @@ const onContextMenu = 'contextmenu'
 const onDoubleClick = 'dblclick'
 
 export {
+  onTouchStart,
+  onTouchMove,
+  onTouchEnd,
+  onTouchCancel,
   onMouseDown,
   onMouseUp,
   onMouseMove,
