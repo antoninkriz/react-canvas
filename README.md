@@ -1,12 +1,14 @@
 # react-canvas
 
-`react-canvas` fork which supports React 18.6.8 using custom fiber renderer.
+`react-canvas` fork which supports React 18.2.0 using custom fiber renderer.
 
 Previous work / forks:
 
 - [Flipboard/react-canvas](https://github.com/Flipboard/react-canvas)
 - [CraigMorton/react-canvas](https://github.com/CraigMorton/react-canvas)
 - [CSBerger/react-canvas](https://github.com/CSberger/react-canvas)
+- [vojty/react-canvas](https://github.com/vojty/react-canvas)
+- [qntln/react-canvas](https://github.com/qntln/react-canvas)
 
 # Original repo's README
 
