@@ -42,16 +42,9 @@ export default function measureText(
   }
 
   const measuredSize = {}
-  let textMetrics
-  let lastMeasuredWidth
-  let tryLine
-  let currentLine
-  let bk
 
-  ctx.font = `${fontFace.attributes.style} normal ${
-    fontFace.attributes.weight
-  } ${fontSize}px ${fontFace.family}`
-  textMetrics = ctx.measureText(text)
+  ctx.font = `${fontFace.attributes.style} normal ${fontFace.attributes.weight} ${fontSize}px ${fontFace.family}`
+  let textMetrics = ctx.measureText(text)
 
   measuredSize.width = textMetrics.width
   measuredSize.height = lineHeight
@@ -63,21 +56,24 @@ export default function measureText(
   } else {
     // Break into multiple lines.
     measuredSize.width = width
-    currentLine = ''
+    let currentLine = ''
     const breaker = LineBreaker(text, {
       lineBreak: 'strict',
       wordBreak: 'normal'
     })
 
+    let bk
+    let lastMeasuredWidth
+
     // eslint-disable-next-line no-cond-assign
     while (!(bk = breaker.next()).done) {
       const word = bk.value.slice()
-      tryLine = currentLine + word
+      const tryLine = currentLine + word
       textMetrics = ctx.measureText(tryLine)
       if (textMetrics.width > width) {
         measuredSize.height += lineHeight
         measuredSize.lines.push({
-          width: lastMeasuredWidth,
+          width: lastMeasuredWidth || 0,
           text: currentLine.trim()
         })
         currentLine = word

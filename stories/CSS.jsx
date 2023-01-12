@@ -2,6 +2,59 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { FontFace, Text, Group, Image, Surface } from '../src/index'
 
+// Styles
+// ======
+
+const getSize = () => ({
+  width: window.innerWidth - 30,
+  height: window.innerHeight - 30
+})
+
+const getPageStyle = () => {
+  const size = getSize()
+  return {
+    position: 'relative',
+    padding: 14,
+    width: size.width,
+    height: size.height,
+    backgroundColor: '#f7f7f7',
+    flexDirection: 'column'
+  }
+}
+
+const getImageGroupStyle = () => ({
+  position: 'relative',
+  flex: 1,
+  backgroundColor: '#eee'
+})
+
+const getImageStyle = () => ({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  right: 0,
+  bottom: 0
+})
+
+const getTitleStyle = () => ({
+  fontFace: FontFace('Georgia'),
+  fontSize: 22,
+  lineHeight: 28,
+  height: 28,
+  marginBottom: 10,
+  color: '#333',
+  textAlign: 'center'
+})
+
+const getExcerptStyle = () => ({
+  fontFace: FontFace('Georgia'),
+  fontSize: 17,
+  lineHeight: 25,
+  marginTop: 15,
+  flex: 1,
+  color: '#333'
+})
+
 class App extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleResize, true)
@@ -9,66 +62,6 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this._unmounted = true
-  }
-
-  // Styles
-  // ======
-
-  getSize = () => {
-    return { width: window.innerWidth - 30, height: window.innerHeight - 30 }
-  }
-
-  getPageStyle = () => {
-    const size = this.getSize()
-    return {
-      position: 'relative',
-      padding: 14,
-      width: size.width,
-      height: size.height,
-      backgroundColor: '#f7f7f7',
-      flexDirection: 'column'
-    }
-  }
-
-  getImageGroupStyle = () => {
-    return {
-      position: 'relative',
-      flex: 1,
-      backgroundColor: '#eee'
-    }
-  }
-
-  getImageStyle = () => {
-    return {
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      right: 0,
-      bottom: 0
-    }
-  }
-
-  getTitleStyle = () => {
-    return {
-      fontFace: FontFace('Georgia'),
-      fontSize: 22,
-      lineHeight: 28,
-      height: 28,
-      marginBottom: 10,
-      color: '#333',
-      textAlign: 'center'
-    }
-  }
-
-  getExcerptStyle = () => {
-    return {
-      fontFace: FontFace('Georgia'),
-      fontSize: 17,
-      lineHeight: 25,
-      marginTop: 15,
-      flex: 1,
-      color: '#333'
-    }
   }
 
   // Events
@@ -81,7 +74,7 @@ class App extends React.Component {
   }
 
   render() {
-    const size = this.getSize()
+    const size = getSize()
 
     return (
       <Surface
@@ -90,16 +83,16 @@ class App extends React.Component {
         width={size.width}
         height={size.height}
         enableCSSLayout>
-        <Group style={this.getPageStyle()}>
-          <Text style={this.getTitleStyle()}>Professor PuddinPop</Text>
-          <Group style={this.getImageGroupStyle()}>
+        <Group style={getPageStyle()}>
+          <Text style={getTitleStyle()}>Professor PuddinPop</Text>
+          <Group style={getImageGroupStyle()}>
             <Image
               src="https://i.imgur.com/U1p9DSP.png"
-              style={this.getImageStyle()}
+              style={getImageStyle()}
               fadeIn
             />
           </Group>
-          <Text style={this.getExcerptStyle()}>
+          <Text style={getExcerptStyle()}>
             With these words the Witch fell down in a brown, melted, shapeless
             mass and began to spread over the clean boards of the kitchen floor.
             Seeing that she had really melted away to nothing, Dorothy drew
@@ -117,10 +110,8 @@ class App extends React.Component {
   }
 }
 
-storiesOf('CSS', module).add('test-css', () => {
-  return (
-    <div>
-      <App />
-    </div>
-  )
-})
+storiesOf('CSS', module).add('test-css', () => (
+  <div>
+    <App />
+  </div>
+))

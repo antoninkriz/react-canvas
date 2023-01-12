@@ -22,7 +22,7 @@ function walkNode(node, parentLeft, parentTop) {
   node.layer.frame.width = node.layout.width
   node.layer.frame.height = node.layout.height
   if (node.children && node.children.length > 0) {
-    node.children.forEach(child => {
+    node.children.forEach((child) => {
       walkNode(child, node.layer.frame.x, node.layer.frame.y)
     })
   }
@@ -32,7 +32,7 @@ function walkNode(node, parentLeft, parentTop) {
  * This computes the CSS layout for a RenderLayer tree and mutates the frame
  * objects at each node.
  *
- * @param {Renderlayer} root
+ * @param {RenderLayer} root
  * @return {Object}
  */
 function layoutNode(root) {

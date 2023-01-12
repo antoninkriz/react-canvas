@@ -111,7 +111,7 @@ function layerContainsFontFace(layer, fontFace) {
  * @param {String} imageUrl
  */
 function handleImageLoad(imageUrl) {
-  _backingStores.forEach(backingStore => {
+  _backingStores.forEach((backingStore) => {
     if (layerContainsImage(backingStore.layer, imageUrl)) {
       invalidateBackingStore(backingStore.id)
     }
@@ -125,7 +125,7 @@ function handleImageLoad(imageUrl) {
  * @param {FontFace} fontFace
  */
 function handleFontLoad(fontFace) {
-  _backingStores.forEach(backingStore => {
+  _backingStores.forEach((backingStore) => {
     if (layerContainsFontFace(backingStore.layer, fontFace)) {
       invalidateBackingStore(backingStore.id)
     }
@@ -352,7 +352,7 @@ function drawChildren(layer, ctx) {
     children
       .slice()
       .sort(sortByZIndexAscending)
-      .forEach(childLayer => drawRenderLayer(ctx, childLayer))
+      .forEach((childLayer) => drawRenderLayer(ctx, childLayer))
   }
 }
 

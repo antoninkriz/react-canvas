@@ -6,7 +6,7 @@ import { emptyObject } from './utils'
 import Gradient from './Gradient'
 import Text from './Text'
 import Group from './Group'
-import { RawImage } from './Image'
+import { RawImage } from './RawImage'
 import CanvasComponent from './CanvasComponent'
 import { getClosestInstanceFromNode } from './ReactDOMComponentTree'
 
@@ -22,7 +22,7 @@ const componentConstructors = {
 
 const componentPool = {}
 
-const freeComponentToPool = component => {
+const freeComponentToPool = (component) => {
   const { type } = component
 
   if (!(component.type in componentPool)) {
@@ -36,7 +36,7 @@ const freeComponentToPool = component => {
   }
 }
 
-const freeComponentAndChildren = c => {
+const freeComponentAndChildren = (c) => {
   if (!(c instanceof CanvasComponent)) return
 
   const { children } = c.getLayer()

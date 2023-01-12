@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import { storiesOf } from '@storybook/react'
 
 import range from 'lodash.range'
-import { scaleBand, interpolateInferno } from 'd3-scale'
+import { scaleBand } from 'd3-scale'
 
 import Alea from 'alea'
+import { interpolateInferno } from 'd3-scale-chromatic'
 import { Surface, registerCustomComponent } from '../src/index'
 
 const random = new Alea(0)
@@ -65,15 +66,6 @@ const Heatmap = registerCustomComponent(
 )
 
 class App extends React.Component {
-  static propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
-    data: PropTypes.array.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
-  }
-
   render() {
     const { data, height, width, x, y } = this.props
 
@@ -101,17 +93,24 @@ class App extends React.Component {
   }
 }
 
-storiesOf('Heatmap', module).add('heatmap', () => {
-  const props = {
-    height: 800,
-    width: 800,
-    x: 0,
-    y: 0,
-    size: { width: 80, height: 80 }
-  }
-  return (
-    <div>
-      <App data={rows} {...props} />
-    </div>
-  )
-})
+App.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
+}
+
+storiesOf('Heatmap', module).add('heatmap', () => (
+  <div>
+    <App
+      data={rows}
+      height={800}
+      width={800}
+      x={0}
+      y={0}
+      size={{ width: 80, height: 80 }}
+    />
+  </div>
+))

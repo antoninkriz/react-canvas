@@ -71,10 +71,8 @@ class App extends React.Component {
   }
 }
 
-storiesOf('CustomDraw', module).add('green-circle', () => {
-  return (
-    <div>
-      <App />
-    </div>
-  )
-})
+storiesOf('CustomDraw', module).add('green-circle', () => (
+  <div>
+    <App />
+  </div>
+))

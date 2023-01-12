@@ -77,7 +77,7 @@ RenderLayer.prototype = {
    * Inject a layer before a reference layer
    *
    * @param {RenderLayer} parentLayer
-   * @param {RenderLayer} referenceLayer
+   * @param {RenderLayer} beforeLayer
    */
   injectBefore(parentLayer, beforeLayer) {
     this.remove()
@@ -151,9 +151,6 @@ RenderLayer.prototype = {
     return this.removeEventListener.bind(this, type, callback, callbackScope)
   },
 
-  /**
-   * @param {String} type
-   */
   destroyEventListeners() {
     for (const eventType in EventTypes) {
       if (this[eventType]) {
@@ -202,7 +199,7 @@ RenderLayer.prototype = {
     }
 
     if (this.children) {
-      this.children.forEach(child => {
+      this.children.forEach((child) => {
         child.translate(x, y)
       })
     }
@@ -215,9 +212,6 @@ RenderLayer.prototype = {
    * component that is animating alpha level after the image loads would
    * call `invalidateBackingStore` once after the image loads, and at each
    * step in the animation would then call `invalidateRect`.
-   *
-   * @param {?Frame} frame Optional, if not passed the entire layer's frame
-   *   will be invalidated.
    */
   invalidateLayout() {
     // Bubble all the way to the root layer.
@@ -240,7 +234,7 @@ RenderLayer.prototype = {
    * Only the root owning layer should implement this function.
    */
   draw() {
-    // Placeholer
+    // Placeholder
   }
 }
 

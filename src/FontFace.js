@@ -50,8 +50,7 @@ function FontFace(family, url, attributes) {
  * @param {Number} fontWeight
  * @return {FontFace}
  */
-FontFace.Default = fontWeight => {
-  return FontFace('sans-serif', null, { weight: fontWeight })
-}
+FontFace.Default = (fontWeight) =>
+  FontFace('sans-serif', null, { weight: fontWeight })
 
 export default FontFace

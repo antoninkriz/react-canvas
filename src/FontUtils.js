@@ -14,10 +14,7 @@ const kFontLoadTimeout = 3000
 function createTestNode(family, attributes) {
   const span = document.createElement('span')
   span.setAttribute('data-fontfamily', family)
-  span.style.cssText = `${'position:absolute; left:-5000px; top:-5000px; visibility:hidden;' +
-    'font-size:100px; font-family:"'}${family}", Helvetica;font-weight: ${
-    attributes.weight
-  }; font-style:${attributes.style};`
+  span.style.cssText = `position:absolute; left:-5000px; top:-5000px; visibility:hidden; font-size:100px; font-family:${family}", Helvetica; font-weight: ${attributes.weight}; font-style:${attributes.style};`
   span.innerHTML = 'BESs'
   return span
 }
@@ -37,7 +34,7 @@ function handleFontLoad(fontFace, timeout) {
   }
 
   // Execute pending callbacks.
-  _pendingFonts[fontFace.id].callbacks.forEach(callback => {
+  _pendingFonts[fontFace.id].callbacks.forEach((callback) => {
     callback(error)
   })
 
@@ -179,7 +176,7 @@ function loadFontNative(fontFace, callback) {
       _loadedFonts[fontFace.id] = true
       callback(null)
     },
-    err => {
+    (err) => {
       _failedFonts[fontFace.id] = err
       callback(err)
     }

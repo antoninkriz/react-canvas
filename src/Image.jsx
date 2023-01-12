@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CanvasComponent from './CanvasComponent'
 import { Group } from './Core'
 import ImageCache from './ImageCache'
 import { easeInCubic } from './Easing'
@@ -10,41 +9,7 @@ const RawImageName = 'RawImage'
 
 const FADE_DURATION = 200
 
-const LAYER_TYPE = 'image'
-
-export class RawImage extends CanvasComponent {
-  applyLayerProps = (prevProps, props) => {
-    const layer = this.node
-
-    if (layer.type !== LAYER_TYPE) {
-      layer.type = LAYER_TYPE
-    }
-
-    if (layer.imageUrl !== props.src) {
-      layer.imageUrl = props.src
-    }
-
-    this.applyCommonLayerProps(prevProps, props)
-  }
-}
-
 export default class Image extends React.Component {
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    style: PropTypes.object,
-    useBackingStore: PropTypes.bool,
-    fadeIn: PropTypes.bool,
-    fadeInDuration: PropTypes.number
-  }
-
-  static defaultProps = {
-    useBackingStore: false,
-    fadeIn: false,
-    fadeInDuration: 0,
-    style: {}
-  }
-
   constructor(props) {
     super(props)
     const loaded = ImageCache.get(props.src).isLoaded()
@@ -81,11 +46,11 @@ export default class Image extends React.Component {
     ImageCache.get(this.props.src).removeListener('load', this.handleImageLoad)
   }
 
-  setRawImageRef = ref => {
+  setRawImageRef = (ref) => {
     this.rawImageRef = ref
   }
 
-  setGroupRef = ref => {
+  setGroupRef = (ref) => {
     this.groupRef = ref
   }
 
@@ -116,9 +81,9 @@ export default class Image extends React.Component {
   }
 
   render() {
-    const imageStyle = Object.assign({}, this.props.style)
-    const style = Object.assign({}, this.props.style)
-    const backgroundStyle = Object.assign({}, this.props.style)
+    const imageStyle = { ...this.props.style }
+    const style = { ...this.props.style }
+    const backgroundStyle = { ...this.props.style }
     const useBackingStore = this.state.loaded
       ? this.props.useBackingStore
       : false
@@ -145,4 +110,20 @@ export default class Image extends React.Component {
       </Group>
     )
   }
+}
+
+Image.propTypes = {
+  src: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.object,
+  useBackingStore: PropTypes.bool,
+  fadeIn: PropTypes.bool,
+  fadeInDuration: PropTypes.number
+}
+
+Image.defaultProps = {
+  useBackingStore: false,
+  fadeIn: false,
+  fadeInDuration: 0,
+  style: {}
 }

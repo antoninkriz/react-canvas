@@ -13,33 +13,6 @@ const MOUSE_CLICK_DURATION_MS = 300
  * ReactCanvas components cannot be rendered outside a Surface.
  */
 class Surface extends React.Component {
-  static displayName = 'Surface'
-
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-    top: PropTypes.number.isRequired,
-    left: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    scale: PropTypes.number,
-    enableCSSLayout: PropTypes.bool,
-    children: PropTypes.node.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    style: PropTypes.object,
-    // eslint-disable-next-line react/forbid-prop-types
-    canvas: PropTypes.object
-  }
-
-  static defaultProps = {
-    scale: window.devicePixelRatio || 1,
-    className: '',
-    id: undefined,
-    enableCSSLayout: false,
-    style: {},
-    canvas: undefined
-  }
-
   static canvasRenderer = null
 
   constructor(props) {
@@ -50,11 +23,7 @@ class Surface extends React.Component {
     }
   }
 
-  setCanvasRef = canvas => {
-    this.canvas = canvas
-  }
-
-  componentDidMount = () => {
+  componentDidMount() {
     // Prepare the <canvas> for drawing.
     this.scale()
 
@@ -73,11 +42,7 @@ class Surface extends React.Component {
     this.node.draw()
   }
 
-  componentWillUnmount = () => {
-    Surface.canvasRenderer.updateContainer(null, this.mountNode, this)
-  }
-
-  componentDidUpdate = prevProps => {
+  componentDidUpdate(prevProps) {
     // Re-scale the <canvas> when changing size.
     if (
       prevProps.width !== this.props.width ||
@@ -98,13 +63,19 @@ class Surface extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    Surface.canvasRenderer.updateContainer(null, this.mountNode, this)
+  }
+
+  setCanvasRef = (canvas) => {
+    this.canvas = canvas
+  }
+
   // Drawing
   // =======
   getLayer = () => this.node
 
-  getContext = () => {
-    return this.canvas?.getContext('2d')
-  }
+  getContext = () => this.canvas?.getContext('2d')
 
   scale = () => {
     const ctx = this.getContext()
@@ -160,14 +131,14 @@ class Surface extends React.Component {
   // Events
   // ======
 
-  hitTest = e => {
+  hitTest = (e) => {
     const hitTarget = hitTest(e, this.node, this.canvas)
     if (hitTarget) {
       hitTarget[hitTest.getHitHandle(e.type)](e)
     }
   }
 
-  handleTouchStart = e => {
+  handleTouchStart = (e) => {
     const hitTarget = hitTest(e, this.node, this.canvas)
 
     let touch
@@ -183,11 +154,11 @@ class Surface extends React.Component {
     }
   }
 
-  handleTouchMove = e => {
+  handleTouchMove = (e) => {
     this.hitTest(e)
   }
 
-  handleTouchEnd = e => {
+  handleTouchEnd = (e) => {
     // touchend events do not generate a pageX/pageY so we rely
     // on the currently captured touch targets.
     if (!this._touches) {
@@ -205,7 +176,7 @@ class Surface extends React.Component {
     }
   }
 
-  handleMouseEvent = e => {
+  handleMouseEvent = (e) => {
     if (e.type === 'mousedown') {
       // Keep track of initial mouse down info to detect a proper click.
       this._lastMouseDownTimestamp = e.timeStamp
@@ -260,7 +231,7 @@ class Surface extends React.Component {
     }
   }
 
-  handleContextMenu = e => {
+  handleContextMenu = (e) => {
     this.hitTest(e)
   }
 
@@ -275,7 +246,7 @@ class Surface extends React.Component {
     let style = {}
 
     if (this.props.style) {
-      style = Object.assign({}, this.props.style)
+      style = { ...this.props.style }
     }
 
     if (typeof this.props.width !== 'undefined') {
@@ -307,6 +278,33 @@ class Surface extends React.Component {
       onDoubleClick: this.handleMouseEvent
     })
   }
+}
+
+Surface.displayName = 'Surface'
+
+Surface.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  top: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  scale: PropTypes.number,
+  enableCSSLayout: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types
+  canvas: PropTypes.object
+}
+
+Surface.defaultProps = {
+  scale: window.devicePixelRatio || 1,
+  className: '',
+  id: undefined,
+  enableCSSLayout: false,
+  style: {},
+  canvas: undefined
 }
 
 export default Surface

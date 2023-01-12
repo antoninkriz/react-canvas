@@ -4,9 +4,7 @@ const HostText = 6
 
 // adapted FROM: https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMComponentTree.js
 
-const randomKey = Math.random()
-  .toString(36)
-  .slice(2)
+const randomKey = Math.random().toString(36).slice(2)
 const internalInstanceKey = `__reactFiber$${randomKey}`
 
 /**

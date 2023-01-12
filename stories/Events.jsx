@@ -4,12 +4,16 @@ import { storiesOf } from '@storybook/react'
 import { Group, Surface } from '../src/index'
 
 class Story extends React.Component {
-  state = {
-    log: []
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      log: []
+    }
   }
 
-  action = entry => {
-    this.setState(prevState => ({
+  action = (entry) => {
+    this.setState((prevState) => ({
       log: [...prevState.log, entry]
     }))
   }

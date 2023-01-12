@@ -5,8 +5,8 @@ import measureText from './measureText'
  * Draw an image into a <canvas>. This operation requires that the image
  * already be loaded.
  *
- * @param {CanvasContext} ctx
- * @param {Image} image The source image (from ImageCache.get())
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Img} image The source image (from ImageCache.get())
  * @param {Number} x The x-coordinate to begin drawing
  * @param {Number} y The y-coordinate to begin drawing
  * @param {Number} width The desired width
@@ -27,15 +27,6 @@ function drawImage(ctx, image, x, y, width, height, options) {
     ctx.restore()
   }
 
-  let dx = 0
-  let dy = 0
-  let dw = 0
-  let dh = 0
-  let sx = 0
-  let sy = 0
-  let sw = 0
-  let sh = 0
-  let scale
   let { focusPoint } = options
 
   const actualSize = {
@@ -43,7 +34,8 @@ function drawImage(ctx, image, x, y, width, height, options) {
     height: image.getHeight()
   }
 
-  scale = Math.max(width / actualSize.width, height / actualSize.height) || 1
+  let scale =
+    Math.max(width / actualSize.width, height / actualSize.height) || 1
   scale = parseFloat(scale.toFixed(4), 10)
 
   const scaledSize = {
@@ -67,39 +59,39 @@ function drawImage(ctx, image, x, y, width, height, options) {
   }
 
   // Clip the image to rectangle (sx, sy, sw, sh).
-  sx =
+  const sx =
     Math.round(
       clamp(width * 0.5 - focusPoint.x * scale, width - scaledSize.width, 0)
     ) *
     (-1 / scale)
-  sy =
+  const sy =
     Math.round(
       clamp(height * 0.5 - focusPoint.y * scale, height - scaledSize.height, 0)
     ) *
     (-1 / scale)
-  sw = Math.round(actualSize.width - sx * 2)
-  sh = Math.round(actualSize.height - sy * 2)
+  const sw = Math.round(actualSize.width - sx * 2)
+  const sh = Math.round(actualSize.height - sy * 2)
 
   // Scale the image to dimensions (dw, dh).
-  dw = Math.round(width)
-  dh = Math.round(height)
+  const dw = Math.round(width)
+  const dh = Math.round(height)
 
   // Draw the image on the canvas at coordinates (dx, dy).
-  dx = Math.round(x)
-  dy = Math.round(y)
+  const dx = Math.round(x)
+  const dy = Math.round(y)
 
   ctx.drawImage(image.getRawImage(), sx, sy, sw, sh, dx, dy, dw, dh)
 }
 
 /**
- * @param {CanvasContext} ctx
+ * @param {CanvasRenderingContext2D} ctx
  * @param {String} text The text string to render
  * @param {Number} x The x-coordinate to begin drawing
  * @param {Number} y The y-coordinate to begin drawing
  * @param {Number} width The maximum allowed width
  * @param {Number} height The maximum allowed height
  * @param {FontFace} fontFace The FontFace to to use
- * @param {Object} options Available options are:
+ * @param {Object} _options Available options are:
  *   {Number} fontSize
  *   {Number} lineHeight
  *   {String} textAlign
@@ -135,9 +127,7 @@ function drawText(ctx, text, x, y, width, height, fontFace, _options) {
   }
 
   ctx.fillStyle = options.color
-  ctx.font = `${fontFace.attributes.style} normal ${
-    fontFace.attributes.weight
-  } ${options.fontSize}px ${fontFace.family}`
+  ctx.font = `${fontFace.attributes.style} normal ${fontFace.attributes.weight} ${options.fontSize}px ${fontFace.family}`
 
   textMetrics.lines.forEach((line, index) => {
     currText = line.text
@@ -176,7 +166,7 @@ function drawText(ctx, text, x, y, width, height, fontFace, _options) {
 /**
  * Draw a linear gradient
  *
- * @param {CanvasContext} ctx
+ * @param {CanvasRenderingContext2D} ctx
  * @param {Number} x1 gradient start-x coordinate
  * @param {Number} y1 gradient start-y coordinate
  * @param {Number} x2 gradient end-x coordinate
@@ -191,7 +181,7 @@ function drawGradient(ctx, x1, y1, x2, y2, colorStops, x, y, width, height) {
   ctx.save()
   const grad = ctx.createLinearGradient(x1, y1, x2, y2)
 
-  colorStops.forEach(colorStop => {
+  colorStops.forEach((colorStop) => {
     grad.addColorStop(colorStop.position, colorStop.color)
   })
 

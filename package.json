@@ -1,7 +1,7 @@
 {
   "name": "react-canvas",
-  "version": "1.7.0",
-  "description": "High performance <canvas> rendering for React components",
+  "version": "1.8.0",
+  "description": "High performance <canvas> rendering for React components for React 18",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -9,12 +9,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/gfodor/react-canvas.git"
+    "url": "https://github.com/antoninkriz/react-canvas.git"
   },
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist",
-    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
+    "storybook": "storybook dev -p 6006",
     "prepare": "yarn build",
     "prettier": "prettier {src,stories}/**/* --write",
     "lint": "eslint 'src/**/*' 'stories/**/*'"
@@ -23,43 +22,59 @@
     "react",
     "canvas"
   ],
+  "maintainers": [
+    {
+      "name": "Antonín Kříž",
+      "url": "https://www.antoninkriz.eu"
+    }
+  ],
+  "contributors": [
+    "Antonín Kříž (https://www.antoninkriz.eu)",
+    "Jakub Kottnauer <jk@jakubkottnauer.com>",
+    "Tomáš Vojtášek <tomas.vojtasek@quantlane.com>",
+    "Vita Smid <hi@vitasmid.com>",
+    "Greg Fodor <gfodor@gmail.com>",
+    "Christopher Berger <contact@christopherberger.info>",
+    "Brent Vatne <brent.vatne@madriska.com>"
+  ],
   "author": "Michael Johnston <mj@flipboard.com>",
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/gfodor/react-canvas",
+  "homepage": "https://github.com/antoninkriz/react-canvas",
   "bugs": {
-    "url": "https://github.com/gfodor/react-canvas/issues"
+    "url": "https://github.com/antoninkriz/react-canvas/issues"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.9",
-    "@babel/core": "^7.18.9",
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.18.9",
+    "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@storybook/addon-actions": "^6.5.9",
-    "@storybook/addon-essentials": "^6.5.9",
-    "@storybook/addon-interactions": "^6.5.9",
-    "@storybook/addon-links": "^6.5.9",
-    "@storybook/builder-webpack4": "^6.5.9",
-    "@storybook/manager-webpack4": "^6.5.9",
-    "@storybook/react": "^6.5.9",
-    "@storybook/testing-library": "^0.0.13",
-    "alea": "^0.0.9",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.6",
-    "d3-scale": "^1.0.7",
-    "eslint": "5.3.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.11.0",
-    "eslint-plugin-storybook": "^0.6.1",
+    "@storybook/addon-actions": "^7.0.0-beta.25",
+    "@storybook/addon-essentials": "^7.0.0-beta.25",
+    "@storybook/addon-interactions": "^7.0.0-beta.25",
+    "@storybook/addon-links": "^7.0.0-beta.25",
+    "@storybook/react": "^7.0.0-beta.25",
+    "@storybook/react-webpack5": "^7.0.0-beta.25",
+    "@storybook/testing-library": "^0.0.14-next.1",
+    "alea": "^1.0.1",
+    "babel-loader": "^9.1.2",
+    "d3-scale": "^4.0.2",
+    "d3-scale-chromatic": "^3.0.0",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.0",
+    "eslint-plugin-storybook": "^0.6.10",
     "lodash.range": "^3.2.0",
-    "prettier": "^1.17.1",
+    "prettier": "^2.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^3.0.2",
+    "storybook": "^7.0.0-beta.25"
   },
   "peerDependencies": {
     "react": "^18.2.0",
