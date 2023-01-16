@@ -50,13 +50,14 @@
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@storybook/addon-actions": "^7.0.0-beta.25",
-    "@storybook/addon-essentials": "^7.0.0-beta.25",
-    "@storybook/addon-interactions": "^7.0.0-beta.25",
-    "@storybook/addon-links": "^7.0.0-beta.25",
-    "@storybook/react": "^7.0.0-beta.25",
-    "@storybook/react-webpack5": "^7.0.0-beta.25",
+    "@storybook/addon-actions": "^7.0.0-beta.28",
+    "@storybook/addon-essentials": "^7.0.0-beta.28",
+    "@storybook/addon-interactions": "^7.0.0-beta.28",
+    "@storybook/addon-links": "^7.0.0-beta.28",
+    "@storybook/react": "^7.0.0-beta.28",
+    "@storybook/react-webpack5": "^7.0.0-beta.28",
     "@storybook/testing-library": "^0.0.14-next.1",
+    "@types/react-reconciler": "0.26.0",
     "alea": "^1.0.1",
     "babel-loader": "^9.1.2",
     "d3-scale": "^4.0.2",
@@ -71,14 +72,14 @@
     "eslint-plugin-storybook": "^0.6.10",
     "lodash.range": "^3.2.0",
     "prettier": "^2.8.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "==17.0.2",
+    "react-dom": "==17.0.2",
     "rimraf": "^3.0.2",
-    "storybook": "^7.0.0-beta.25"
+    "storybook": "^7.0.0-beta.28"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "==17.0.2",
+    "react-dom": "==17.0.2"
   },
   "dependencies": {
     "css-layout": "^1.1.1",
@@ -86,6 +87,7 @@
     "invariant": "^2.2.4",
     "multi-key-cache": "^1.0.2",
     "prop-types": "^15.8.1",
-    "react-reconciler": "^0.29.0"
+    "react-reconciler": "==0.26.0",
+    "scheduler": "==0.20.2"
   }
 }

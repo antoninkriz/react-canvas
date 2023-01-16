@@ -1,7 +1,7 @@
 import React from 'react'
 import invariant from 'invariant'
+import { unstable_now as now } from 'scheduler'
 import ReactFiberReconciler from 'react-reconciler'
-import { DefaultEventPriority } from 'react-reconciler/constants'
 import { emptyObject } from './utils'
 import Gradient from './Gradient'
 import Text from './Text'
@@ -50,38 +50,12 @@ const freeComponentAndChildren = (c) => {
   freeComponentToPool(c)
 }
 
+/** @type {ReactFiberReconciler.HostConfig} */
 const CanvasHostConfig = {
-  supportsHydration: false,
-  supportsPersistence: true,
-  cancelTimeout: clearTimeout,
-  scheduleTimeout: setTimeout,
-  noTimeout: -1,
-  detachDeletedInstance() {},
-  getInstanceFromScope() {
-    return null
-  },
-  preparePortalMount() {},
-  afterActiveInstanceBlur() {},
-  beforeActiveInstanceBlur() {},
-  getCurrentEventPriority() {
-    return DefaultEventPriority
-  },
-  getInstanceFromNode() {
-    return undefined
-  },
-  prepareScopeUpdate() {},
-  clearContainer() {},
-  appendInitialChild(parentInstance, child) {
-    if (typeof child === 'string') {
-      // Noop for string children of Text (eg <Text>{'foo'}{'bar'}</Text>)
-      invariant(false, 'Text children should already be flattened.')
-      return
-    }
+  supportsMutation: true,
+  supportsPersistence: false,
 
-    child.getLayer().inject(parentInstance.getLayer())
-  },
-
-  createInstance(type, props /* , internalInstanceHandle */) {
+  createInstance(type, props) {
     let instance
 
     const pool = componentPool[type]
@@ -100,34 +74,32 @@ const CanvasHostConfig = {
     return instance
   },
 
-  createTextInstance(
-    text /* , rootContainerInstance, internalInstanceHandle */
-  ) {
+  createTextInstance(text) {
     return text
   },
 
-  finalizeInitialChildren(/* domElement, type, props */) {
+  appendInitialChild(parentInstance, child) {
+    if (typeof child === 'string') {
+      // Noop for string children of Text (eg <Text>{'foo'}{'bar'}</Text>)
+      invariant(false, 'Text children should already be flattened.')
+      return
+    }
+
+    child.getLayer().inject(parentInstance.getLayer())
+  },
+
+  finalizeInitialChildren() {
     return false
   },
 
-  getPublicInstance(instance) {
-    return instance
-  },
-
-  prepareForCommit() {
-    return null
-  },
-
-  prepareUpdate(/* domElement, type, oldProps, newProps */) {
+  prepareUpdate() {
     return UPDATE_SIGNAL
   },
 
-  resetAfterCommit() {
-    // Noop
-  },
-
-  shouldDeprioritizeSubtree(/* type, props */) {
-    return false
+  shouldSetTextContent(type, props) {
+    return (
+      typeof props.children === 'string' || typeof props.children === 'number'
+    )
   },
 
   getRootHostContext() {
@@ -138,15 +110,31 @@ const CanvasHostConfig = {
     return emptyObject
   },
 
-  shouldSetTextContent(type, props) {
-    return (
-      typeof props.children === 'string' || typeof props.children === 'number'
-    )
+  getPublicInstance(instance) {
+    return instance
   },
 
-  isPrimaryRenderer: false,
+  prepareForCommit() {
+    return null
+  },
 
-  supportsMutation: true,
+  resetAfterCommit() {
+    // Noop
+  },
+
+  preparePortalMount() {},
+
+  now,
+
+  scheduleTimeout: setTimeout,
+
+  cancelTimeout: clearTimeout,
+
+  noTimeout: -1,
+
+  queueMicrotask,
+
+  isPrimaryRenderer: false,
 
   appendChild(parentInstance, child) {
     const childLayer = child.getLayer()
@@ -205,7 +193,11 @@ const CanvasHostConfig = {
       instance.applyLayerProps(oldProps, newProps)
       instance.getLayer().invalidateLayout()
     }
-  }
+  },
+
+  clearContainer() {},
+
+  supportsHydration: false
 }
 
 const CanvasRenderer = ReactFiberReconciler(CanvasHostConfig)

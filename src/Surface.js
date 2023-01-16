@@ -36,7 +36,7 @@ class Surface extends React.Component {
     this.node.draw = this.batchedTick
 
     this.mountNode = Surface.canvasRenderer.createContainer(this)
-    Surface.canvasRenderer.updateContainer(children, this.mountNode, this)
+    Surface.canvasRenderer.updateContainer(children, this.mountNode, undefined)
 
     // Execute initial draw on mount.
     this.node.draw()
@@ -64,7 +64,7 @@ class Surface extends React.Component {
   }
 
   componentWillUnmount() {
-    Surface.canvasRenderer.updateContainer(null, this.mountNode, this)
+    Surface.canvasRenderer.updateContainer(null, this.mountNode, undefined)
   }
 
   setCanvasRef = (canvas) => {
