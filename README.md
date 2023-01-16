@@ -1,6 +1,6 @@
 # react-canvas
 
-`react-canvas` fork which supports React 18.2.0 using custom fiber renderer.
+`react-canvas` fork which supports React 17.0.2 using custom fiber renderer.
 
 Previous work / forks:
 
