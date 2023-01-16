@@ -75,7 +75,7 @@ class Surface extends React.Component {
   // =======
   getLayer = () => this.node
 
-  getContext = () => this.canvas?.getContext('2d')
+  getContext = () => (this.canvas ? this.canvas.getContext('2d') : undefined)
 
   scale = () => {
     const ctx = this.getContext()

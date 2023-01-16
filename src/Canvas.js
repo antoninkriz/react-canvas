@@ -22,7 +22,7 @@ Object.assign(Canvas.prototype, {
   },
 
   getContext() {
-    return this._canvas?.getContext('2d')
+    return this._canvas ? this._canvas.getContext('2d') : undefined
   }
 })
 
