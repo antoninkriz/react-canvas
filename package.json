@@ -1,7 +1,7 @@
 {
   "name": "react-canvas",
-  "version": "1.8.0",
-  "description": "High performance <canvas> rendering for React components for React 18",
+  "version": "1.8.0-react17",
+  "description": "High performance <canvas> rendering for React components for React 17",
   "main": "dist/index.js",
   "files": [
     "dist",
