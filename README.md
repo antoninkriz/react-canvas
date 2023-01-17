@@ -14,6 +14,7 @@ Previous work / forks:
 - [CSBerger/react-canvas](https://github.com/CSberger/react-canvas)
 - [vojty/react-canvas](https://github.com/vojty/react-canvas)
 - [qntln/react-canvas](https://github.com/qntln/react-canvas)
+- [darkyen/react-canvas](https://github.com/darkyen/react-canvas)
 
 # Original repo's README
 
