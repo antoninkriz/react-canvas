@@ -1,12 +1,20 @@
 # react-canvas
 
-`react-canvas` fork which supports React 18.6.8 using custom fiber renderer.
+`react-canvas` fork which supports React 16.14.0 using custom fiber renderer.
+
+Check out other branches which might support other React versions, for example branches:
+- `master` should work with React 18.2.0
+- `react-17` should work with React 17.0.2
+- `react-16` should work with React 16.14.0
 
 Previous work / forks:
 
 - [Flipboard/react-canvas](https://github.com/Flipboard/react-canvas)
 - [CraigMorton/react-canvas](https://github.com/CraigMorton/react-canvas)
 - [CSBerger/react-canvas](https://github.com/CSberger/react-canvas)
+- [vojty/react-canvas](https://github.com/vojty/react-canvas)
+- [qntln/react-canvas](https://github.com/qntln/react-canvas)
+- [darkyen/react-canvas](https://github.com/darkyen/react-canvas)
 
 # Original repo's README
 
@@ -80,7 +88,7 @@ React Canvas provides a set of standard React components that abstract the under
 
 React Canvas components support the same event model as normal React components. However, not all event types are currently supported.
 
-For a full list of supported events see [EventTypes](lib/EventTypes.js).
+For a full list of supported events see [EventTypes](src/EventTypes.js).
 
 ## Building Components
 
@@ -143,7 +151,7 @@ There is experimental support for using [css-layout](https://github.com/facebook
 
 Future versions may not support css-layout out of the box. The performance implications need to be investigated before baking this in as a core layout principle.
 
-See the [css-layout example](examples/css-layout).
+See the [css-layout example](stories/CSS.jsx).
 
 ## Running the examples (storybook)
 
