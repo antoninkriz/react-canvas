@@ -48,9 +48,7 @@ export default function measureText(
   let currentLine
   let bk
 
-  ctx.font = `${fontFace.attributes.style} normal ${
-    fontFace.attributes.weight
-  } ${fontSize}px ${fontFace.family}`
+  ctx.font = `${fontFace.attributes.style} normal ${fontFace.attributes.weight} ${fontSize}px ${fontFace.family}`
   textMetrics = ctx.measureText(text)
 
   measuredSize.width = textMetrics.width

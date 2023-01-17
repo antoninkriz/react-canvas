@@ -40,8 +40,6 @@ class Surface extends React.Component {
     canvas: undefined
   }
 
-  static canvasRenderer = null
-
   constructor(props) {
     super(props)
 
@@ -255,6 +253,8 @@ class Surface extends React.Component {
   handleContextMenu = e => {
     this.hitTest(e)
   }
+
+  static canvasRenderer = null
 
   render() {
     if (this.props.canvas) {

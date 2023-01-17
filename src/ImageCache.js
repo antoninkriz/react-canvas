@@ -1,8 +1,9 @@
 import EventEmitter from 'events'
+import LRUCache from './LRUCache'
 
 const NOOP = () => {}
 
-function Img(src) {
+export function Img(src) {
   this._originalSrc = src
   this._img = new Image()
   this._img.onload = this.emit.bind(this, 'load')
@@ -65,7 +66,7 @@ Object.assign(Img.prototype, EventEmitter.prototype, {
   },
 
   /**
-   * @return {Bool}
+   * @return {boolean}
    */
   isLoaded() {
     return this._img.naturalHeight > 0
@@ -74,64 +75,7 @@ Object.assign(Img.prototype, EventEmitter.prototype, {
 
 const kInstancePoolLength = 300
 
-const _instancePool = {
-  length: 0,
-  // Keep all the nodes in memory.
-  elements: {},
-
-  // Push with 0 frequency
-  push(hash, data) {
-    this.length++
-    this.elements[hash] = {
-      hash, // Helps identifying
-      freq: 0,
-      data
-    }
-  },
-
-  get(path) {
-    const element = this.elements[path]
-
-    if (element) {
-      element.freq++
-      return element.data
-    }
-
-    return null
-  },
-
-  // used to explicitely remove the path
-  removeElement(path) {
-    // Now almighty GC can claim this soul
-    const element = this.elements[path]
-    delete this.elements[path]
-    this.length--
-    return element
-  },
-
-  _reduceLeastUsed(least, currentHash) {
-    const current = _instancePool.elements[currentHash]
-
-    if (least.freq > current.freq) {
-      return current
-    }
-
-    return least
-  },
-
-  popLeastUsed() {
-    const reducer = _instancePool._reduceLeastUsed
-    const minUsed = Object.keys(this.elements).reduce(reducer, {
-      freq: Infinity
-    })
-
-    if (minUsed.hash) {
-      return this.removeElement(minUsed.hash)
-    }
-
-    return null
-  }
-}
+const _instancePool = new LRUCache(kInstancePoolLength)
 
 const ImageCache = {
   /**
@@ -144,10 +88,7 @@ const ImageCache = {
     if (!image) {
       // Awesome LRU
       image = new Img(src)
-      if (_instancePool.length >= kInstancePoolLength) {
-        _instancePool.popLeastUsed().destructor()
-      }
-      _instancePool.push(image.getOriginalSrc(), image)
+      _instancePool.set(image.getOriginalSrc(), image)
     }
     return image
   }

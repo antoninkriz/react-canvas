@@ -55,6 +55,7 @@ const freeComponentAndChildren = c => {
   freeComponentToPool(c)
 }
 
+/** @type {ReactFiberReconciler.HostConfig} */
 const CanvasHostConfig = {
   appendInitialChild(parentInstance, child) {
     if (typeof child === 'string') {
@@ -135,7 +136,7 @@ const CanvasHostConfig = {
 
   shouldSetTextContent(type, props) {
     return (
-      typeof props.children === 'string' || typeof props.children === 'number'
+      (typeof props.children === 'string' || typeof props.children === 'number')
     )
   },
 

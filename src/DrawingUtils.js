@@ -1,11 +1,12 @@
 import ImageCache from './ImageCache'
 import { isFontLoaded } from './FontUtils'
 import FontFace from './FontFace'
-import { drawGradient, drawText, drawImage } from './CanvasUtils'
+import { drawGradient, drawImage, drawText } from './CanvasUtils'
 import Canvas from './Canvas'
+import LRUCache from './LRUCache'
 
 // Global backing store <canvas> cache
-let _backingStores = []
+const _backingStores = new LRUCache(Canvas.poolSize)
 
 /**
  * Maintain a cache of backing <canvas> for RenderLayer's which are accessible
@@ -15,12 +16,7 @@ let _backingStores = []
  * @return {HTMLCanvasElement}
  */
 function getBackingStore(id) {
-  for (let i = 0, len = _backingStores.length; i < len; i++) {
-    if (_backingStores[i].id === id) {
-      return _backingStores[i].canvas
-    }
-  }
-  return null
+  return _backingStores.get(id)
 }
 
 /**
@@ -29,19 +25,29 @@ function getBackingStore(id) {
  * @param {String} id The layer's backingStoreId
  */
 function invalidateBackingStore(id) {
-  for (let i = 0, len = _backingStores.length; i < len; i++) {
-    if (_backingStores[i].id === id) {
-      _backingStores.splice(i, 1)
-      break
-    }
-  }
+  _backingStores.removeElement(id)
 }
 
 /**
  * Purge the entire backing store cache.
  */
 function invalidateAllBackingStores() {
-  _backingStores = []
+  _backingStores.reset()
+}
+
+/**
+ * Find the nearest backing store ancestor for a given layer.
+ *
+ * @param {RenderLayer} layer
+ */
+function getBackingStoreAncestor(layer) {
+  while (layer) {
+    if (layer.backingStoreId) {
+      return layer
+    }
+    layer = layer.parentLayer
+  }
+  return null
 }
 
 /**
@@ -130,7 +136,7 @@ function handleFontLoad(fontFace) {
  * Draw base layer properties into a rendering context.
  * NOTE: The caller is responsible for calling save() and restore() as needed.
  *
- * @param {CanvasRenderingContext2d} ctx
+ * @param {CanvasRenderingContext2D} ctx
  * @param {RenderLayer} layer
  */
 function drawBaseRenderLayer(ctx, layer) {
@@ -353,7 +359,7 @@ function drawChildren(layer, ctx) {
 /**
  * Draw a RenderLayer instance to a <canvas> context.
  *
- * @param {CanvasRenderingContext2d} ctx
+ * @param {CanvasRenderingContext2D} ctx
  * @param {RenderLayer} layer
  */
 drawRenderLayer = (ctx, layer) => {
@@ -369,7 +375,8 @@ drawRenderLayer = (ctx, layer) => {
   // - translate
   const saveContext =
     (layer.alpha !== null && layer.alpha < 1) ||
-    (layer.translateX || layer.translateY)
+    layer.translateX ||
+    layer.translateY
 
   if (saveContext) {
     ctx.save()
@@ -414,7 +421,7 @@ drawRenderLayer = (ctx, layer) => {
  * drawn into the given context. This will populate the layer backing store
  * cache with the result.
  *
- * @param {CanvasRenderingContext2d} ctx
+ * @param {CanvasRenderingContext2D} ctx
  * @param {RenderLayer} layer
  * @param {Function} drawFunction
  * @private
@@ -428,33 +435,17 @@ drawCacheableRenderLayer = (ctx, layer, drawFunction) => {
   let backingContext
 
   if (!backingStore) {
-    if (_backingStores.length >= Canvas.poolSize) {
-      // Re-use the oldest backing store once we reach the pooling limit.
-      backingStore = _backingStores[0].canvas
-      Canvas.call(
-        backingStore,
-        layer.frame.width,
-        layer.frame.height,
-        backingStoreScale
-      )
-
-      // Move the re-use canvas to the front of the queue.
-      _backingStores[0].id = layer.backingStoreId
-      _backingStores[0].canvas = backingStore
-      _backingStores.push(_backingStores.shift())
-    } else {
-      // Create a new backing store, we haven't yet reached the pooling limit
-      backingStore = new Canvas(
-        layer.frame.width,
-        layer.frame.height,
-        backingStoreScale
-      )
-      _backingStores.push({
-        id: layer.backingStoreId,
-        layer,
-        canvas: backingStore
-      })
-    }
+    // Create a new backing store, we haven't yet reached the pooling limit
+    backingStore = new Canvas(
+      layer.frame.width,
+      layer.frame.height,
+      backingStoreScale
+    )
+    _backingStores.set(layer.backingStoreId, {
+      id: layer.backingStoreId,
+      layer,
+      canvas: backingStore
+    })
 
     // Draw into the backing <canvas> at (0, 0) - we will later use the
     // <canvas> to draw the layer as an image at the proper coordinates.
