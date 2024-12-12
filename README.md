@@ -1,9 +1,12 @@
-# react-canvas
+# react-canvas - React 16.14.0
 
-`react-canvas` fork which supports React 16.14.0 using custom fiber renderer.
+`react-canvas` fork which supports React up to 18.3.1 using custom fiber renderer.
+
+Support for React 19.0.0 is in progress.
 
 Check out other branches which might support other React versions, for example branches:
-- `master` should work with React 18.2.0
+- `master` is a development branch, support for React 19.0.0 is in progress
+- `react-18` should work with React 18.3.1
 - `react-17` should work with React 17.0.2
 - `react-16` should work with React 16.14.0
 
@@ -151,7 +154,7 @@ There is experimental support for using [css-layout](https://github.com/facebook
 
 Future versions may not support css-layout out of the box. The performance implications need to be investigated before baking this in as a core layout principle.
 
-See the [css-layout example](stories/CSS.jsx).
+See the [css-layout example](src/stories/CSS.stories.jsx).
 
 ## Running the examples (storybook)
 
