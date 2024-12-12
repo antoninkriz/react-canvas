@@ -1,9 +1,11 @@
-# react-canvas
+# react-canvas - React 18.3.1
 
-`react-canvas` fork which supports React 18.3.1 using custom fiber renderer.
+`react-canvas` fork which supports React up to 18.3.1 using custom fiber renderer.
+
+Support for React 19.0.0 is in progress.
 
 Check out other branches which might support other React versions, for example branches:
-- `master` is a development branch, currently supporting React 18.3.1
+- `master` is a development branch, support for React 19.0.0 is in progress
 - `react-18` should work with React 18.3.1
 - `react-17` should work with React 17.0.2
 - `react-16` should work with React 16.14.0
@@ -67,22 +69,22 @@ React Canvas provides a set of standard React components that abstract the under
 
 ```javascript
   render() {
-    ...
-    return (
-      <Group style={this.getStyle()}>
-        <Gradient
-          style={this.getGradientStyle()}
-          colorStops={this.getGradientColors()} />
-      </Group>
-    )
-  }
+...
+  return (
+    <Group style={this.getStyle()}>
+      <Gradient
+        style={this.getGradientStyle()}
+        colorStops={this.getGradientColors()} />
+    </Group>
+  )
+}
 
-  getGradientColors() {
-    return [
-      { color: "transparent", position: 0 },
-      { color: "#000", position: 1 }
-    ]
-  }
+getGradientColors() {
+  return [
+    { color: "transparent", position: 0 },
+    { color: "#000", position: 1 }
+  ]
+}
 ```
 
 ## Events
