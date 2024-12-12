@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import range from 'lodash.range'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { scaleBand } from 'd3-scale'
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Alea from 'alea'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { interpolateInferno } from 'd3-scale-chromatic'
 import { Surface, registerCustomComponent } from '../index.js'
 
