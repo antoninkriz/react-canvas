@@ -7,7 +7,6 @@ function setStyleFromProps(layer, props) {
   let style = emptyObject
 
   if (props.style) {
-    // eslint-disable-next-line prefer-destructuring
     style = props.style
     layer._originalStyle = style
   } else {

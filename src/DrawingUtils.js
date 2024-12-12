@@ -39,7 +39,7 @@ function invalidateAllBackingStores() {
  * Find the nearest backing store ancestor for a given layer.
  *
  * @param {RenderLayer} layer
- */
+ */ // eslint-disable-next-line no-unused-vars
 function getBackingStoreAncestor(layer) {
   while (layer) {
     if (layer.backingStoreId) {
@@ -327,7 +327,6 @@ function sortByZIndexAscending(layerA, layerB) {
 }
 
 let drawCacheableRenderLayer = null
-// eslint-disable-next-line import/no-mutable-exports
 let drawRenderLayer = null
 
 function drawChildren(layer, ctx) {
@@ -400,7 +399,6 @@ drawRenderLayer = (ctx, layer) => {
     ctx.save()
 
     // Draw
-    // eslint-disable-next-line no-unused-expressions
     drawFunction && drawFunction(ctx, layer)
     ctx.restore()
 
@@ -456,7 +454,6 @@ drawCacheableRenderLayer = (ctx, layer, drawFunction) => {
     backingContext.save()
 
     // Custom drawing operations
-    // eslint-disable-next-line no-unused-expressions
     drawFunction && drawFunction(backingContext, layer)
     backingContext.restore()
 

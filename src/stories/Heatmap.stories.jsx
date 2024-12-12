@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { storiesOf } from '@storybook/react'
-
 import range from 'lodash.range'
 import { scaleBand } from 'd3-scale'
 
 import Alea from 'alea'
 import { interpolateInferno } from 'd3-scale-chromatic'
-import { Surface, registerCustomComponent } from '../src/index'
+import { Surface, registerCustomComponent } from '../index.js'
 
 const random = new Alea(0)
 random()
@@ -93,8 +91,8 @@ class App extends React.Component {
   }
 }
 
+// eslint-disable-next-line @eslint-react/no-prop-types
 App.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.array.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
@@ -102,7 +100,11 @@ App.propTypes = {
   height: PropTypes.number.isRequired
 }
 
-storiesOf('Heatmap', module).add('heatmap', () => (
+export default {
+  title: 'Heatmap'
+}
+
+export const _Heatmap = () => (
   <div>
     <App
       data={rows}
@@ -113,4 +115,8 @@ storiesOf('Heatmap', module).add('heatmap', () => (
       size={{ width: 80, height: 80 }}
     />
   </div>
-))
+)
+
+_Heatmap.story = {
+  name: 'heatmap'
+}

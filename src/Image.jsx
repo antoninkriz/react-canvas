@@ -29,7 +29,6 @@ export default class Image extends React.Component {
       ImageCache.get(prevProps.src).removeListener('load', this.handleImageLoad)
       ImageCache.get(this.props.src).on('load', this.handleImageLoad)
       const loaded = ImageCache.get(this.props.src).isLoaded()
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ loaded })
     }
 
@@ -51,6 +50,7 @@ export default class Image extends React.Component {
   }
 
   setGroupRef = (ref) => {
+    // eslint-disable-next-line @eslint-react/no-unused-class-component-members
     this.groupRef = ref
   }
 
@@ -112,15 +112,16 @@ export default class Image extends React.Component {
   }
 }
 
+// eslint-disable-next-line @eslint-react/no-prop-types
 Image.propTypes = {
   src: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object,
   useBackingStore: PropTypes.bool,
   fadeIn: PropTypes.bool,
   fadeInDuration: PropTypes.number
 }
 
+// eslint-disable-next-line @eslint-react/no-default-props
 Image.defaultProps = {
   useBackingStore: false,
   fadeIn: false,

@@ -18,11 +18,9 @@ RenderLayer.prototype = {
     }
 
     for (const key in this) {
-      // eslint-disable-next-line no-continue
       if (key === 'children' || key === 'frame' || key === 'component') continue
       const value = this[key]
 
-      // eslint-disable-next-line no-continue
       if (typeof value === 'function') continue
       this[key] = null
     }

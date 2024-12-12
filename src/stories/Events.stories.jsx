@@ -1,7 +1,6 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 
-import { Group, Surface } from '../src/index'
+import { Group, Surface } from '../index.js'
 
 class Story extends React.Component {
   constructor(props) {
@@ -47,7 +46,7 @@ class Story extends React.Component {
             .slice(0)
             .reverse()
             .map((entry, i) => (
-              // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               <div key={i}>{entry}</div>
             ))}
         </div>
@@ -56,4 +55,12 @@ class Story extends React.Component {
   }
 }
 
-storiesOf('Events', module).add('mouse events', () => <Story />)
+export default {
+  title: 'Events'
+}
+
+export const MouseEvents = () => <Story />
+
+MouseEvents.story = {
+  name: 'mouse events'
+}

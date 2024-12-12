@@ -151,7 +151,7 @@ There is experimental support for using [css-layout](https://github.com/facebook
 
 Future versions may not support css-layout out of the box. The performance implications need to be investigated before baking this in as a core layout principle.
 
-See the [css-layout example](stories/CSS.jsx).
+See the [css-layout example](src/stories/CSS.stories.jsx).
 
 ## Running the examples (storybook)
 

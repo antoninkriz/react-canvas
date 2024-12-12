@@ -59,7 +59,6 @@ function inset(frame, top, right, bottom, left) {
 
   // inset(myFrame, 10) => inset(myFrame, 10, 10, 10, 10)
   if (typeof right === 'undefined') {
-    // eslint-disable-next-line no-multi-assign
     right = bottom = left = top
   }
 

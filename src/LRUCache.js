@@ -22,7 +22,7 @@ class LRUCacheByLinkList {
     this._keyVals = {}
   }
 
-  detachElement = entry => {
+  detachElement = (entry) => {
     const prev = entry._prev
     const next = entry._next
 
@@ -46,13 +46,13 @@ class LRUCacheByLinkList {
     return entry
   }
 
-  removeElement = entry => {
+  removeElement = (entry) => {
     this.detachElement(entry)
     delete this._keyVals[entry._hash]
     return entry._datum
   }
 
-  insertAtTop = entry => {
+  insertAtTop = (entry) => {
     if (this._top !== null) {
       this._top._prev = entry
       entry._next = this._top
@@ -66,7 +66,7 @@ class LRUCacheByLinkList {
     this.length++
   }
 
-  insertAtBottom = value => {
+  insertAtBottom = (value) => {
     if (this._bottom !== null) {
       this._bottom._next = value
       value._prev = this._bottom
@@ -112,7 +112,7 @@ class LRUCacheByLinkList {
     return this.removeElement(this._bottom)
   }
 
-  get = key => {
+  get = (key) => {
     const value = this._keyVals[key]
 
     if (value !== undefined) {
@@ -127,7 +127,7 @@ class LRUCacheByLinkList {
   // Remove the element
   // and push it from the front
   // so least recently used objects will end up at the end.
-  promote = el => {
+  promote = (el) => {
     // No need to promote
     if (el === this.top) {
       return
@@ -139,8 +139,8 @@ class LRUCacheByLinkList {
   }
 
   // Call this method
-  forEach = cb => {
-    Object.keys(this._keyVals).forEach(entry => cb(entry._datum))
+  forEach = (cb) => {
+    Object.keys(this._keyVals).forEach((entry) => cb(entry._datum))
   }
 }
 

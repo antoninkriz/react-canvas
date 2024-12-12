@@ -1,8 +1,11 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { Text, Group, Image, Surface } from '../src/index'
+import { Text, Group, Image, Surface } from '../index.js'
 
-storiesOf('Text', module).add('hello-world', () => {
+export default {
+  title: 'Text'
+}
+
+export const HelloWorld = () => {
   const props = { size: { width: 400, height: 400 } }
   return (
     <div>
@@ -55,4 +58,8 @@ storiesOf('Text', module).add('hello-world', () => {
       </Surface>
     </div>
   )
-})
+}
+
+HelloWorld.story = {
+  name: 'hello-world'
+}

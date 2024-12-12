@@ -1,17 +1,13 @@
-module.exports = {
-  'stories': ['../stories/**/*'],
-  'addons': ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-interactions'],
-  'framework': {
-    name: '@storybook/react-webpack5',
-    options: {}
-  },
-  features: {
-    storyStoreV7: false
-  },
+export default {
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: [
+    '@storybook/addon-webpack5-compiler-babel',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-links'
+  ],
+  framework: '@storybook/react-webpack5',
   core: {
     disableTelemetry: true
   },
-  docs: {
-    autodocs: 'tag'
-  }
 }

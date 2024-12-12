@@ -73,6 +73,7 @@ class Surface extends React.Component {
 
   // Drawing
   // =======
+  // eslint-disable-next-line @eslint-react/no-unused-class-component-members
   getLayer = () => this.node
 
   getContext = () => (this.canvas ? this.canvas.getContext('2d') : undefined)
@@ -282,6 +283,7 @@ class Surface extends React.Component {
 
 Surface.displayName = 'Surface'
 
+// eslint-disable-next-line @eslint-react/no-prop-types
 Surface.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
@@ -292,12 +294,11 @@ Surface.propTypes = {
   scale: PropTypes.number,
   enableCSSLayout: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types
   canvas: PropTypes.object
 }
 
+// eslint-disable-next-line @eslint-react/no-default-props
 Surface.defaultProps = {
   scale: window.devicePixelRatio || 1,
   className: '',

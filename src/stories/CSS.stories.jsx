@@ -1,6 +1,5 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { FontFace, Text, Group, Image, Surface } from '../src/index'
+import { FontFace, Text, Group, Image, Surface } from '../index.js'
 
 // Styles
 // ======
@@ -62,6 +61,7 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this._unmounted = true
+    window.removeEventListener('resize', this.handleResize, true)
   }
 
   // Events
@@ -110,8 +110,16 @@ class App extends React.Component {
   }
 }
 
-storiesOf('CSS', module).add('test-css', () => (
+export default {
+  title: 'Test CSS'
+}
+
+export const TestCSS = () => (
   <div>
     <App />
   </div>
-))
+)
+
+TestCSS.story = {
+  name: 'test-css'
+}

@@ -229,7 +229,7 @@ CanvasRenderer.injectIntoDevTools({
   version: React.version || 16,
   rendererPackageName: 'react-canvas',
   getInspectorDataForViewTag: (...args) => {
-    console.log(args) // eslint-disable-line no-console
+    console.log(args)
   }
 })
 

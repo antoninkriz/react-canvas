@@ -110,7 +110,6 @@ function loadFontNormal(fontFace, callback) {
       handleFontLoad(fontFace, null)
     } else {
       // Timeout?
-      // eslint-disable-next-line no-lonely-if
       if (
         Date.now() - _pendingFonts[fontFace.id].startTime >=
         kFontLoadTimeout

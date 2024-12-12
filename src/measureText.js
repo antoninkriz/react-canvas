@@ -65,7 +65,6 @@ export default function measureText(
     let bk
     let lastMeasuredWidth
 
-    // eslint-disable-next-line no-cond-assign
     while (!(bk = breaker.next()).done) {
       const word = bk.value.slice()
       const tryLine = currentLine + word

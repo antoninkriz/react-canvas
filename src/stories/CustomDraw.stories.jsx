@@ -1,7 +1,6 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 
-import { Surface, registerCustomComponent } from '../src/index'
+import { Surface, registerCustomComponent } from '../index.js'
 
 const circleDraw = function draw(ctx, layer) {
   const { x, y, width, height } = layer.frame
@@ -71,8 +70,16 @@ class App extends React.Component {
   }
 }
 
-storiesOf('CustomDraw', module).add('green-circle', () => (
+export default {
+  title: 'CustomDraw'
+}
+
+export const GreenCircle = () => (
   <div>
     <App />
   </div>
-))
+)
+
+GreenCircle.story = {
+  name: 'green-circle'
+}
