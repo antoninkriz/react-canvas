@@ -26,14 +26,14 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.es2015,
+        ...globals.es2015
       }
     },
     plugins: {
       storybook: esp_storybook,
       react: esp_react,
       import: esp_import,
-      'jsx-a11y': esp_jsxA11y,
+      'jsx-a11y': esp_jsxA11y
     },
     rules: {
       'prettier/prettier': [2, prettierConfig],
@@ -60,5 +60,5 @@ export default [
     }
   },
   esc_prettier,
-  esp_prettier,
+  esp_prettier
 ]

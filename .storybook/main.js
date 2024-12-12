@@ -9,5 +9,5 @@ export default {
   framework: '@storybook/react-webpack5',
   core: {
     disableTelemetry: true
-  },
+  }
 }
