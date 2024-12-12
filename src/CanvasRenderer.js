@@ -53,8 +53,15 @@ const freeComponentAndChildren = (c) => {
 
 /** @type {ReactFiberReconciler.HostConfig} */
 const CanvasHostConfig = {
-  supportsMutation: true,
   supportsPersistence: false,
+
+  maySuspendCommit() {
+    return false
+  },
+
+  supportsMutation() {
+    return true
+  },
 
   createInstance(type, props) {
     let instance
@@ -133,8 +140,6 @@ const CanvasHostConfig = {
 
   noTimeout: -1,
 
-  queueMicrotask,
-
   isPrimaryRenderer: false,
 
   appendChild(parentInstance, child) {
@@ -151,6 +156,18 @@ const CanvasHostConfig = {
   },
 
   getCurrentEventPriority() {
+    return DefaultEventPriority
+  },
+
+  getCurrentUpdatePriority() {
+    return DefaultEventPriority
+  },
+
+  setCurrentUpdatePriority() {
+    return DefaultEventPriority
+  },
+
+  resolveUpdatePriority() {
     return DefaultEventPriority
   },
 
