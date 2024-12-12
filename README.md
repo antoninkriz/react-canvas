@@ -1,4 +1,4 @@
-# react-canvas
+# react-canvas - development master branch
 
 `react-canvas` fork which supports React up to 18.3.1 using custom fiber renderer.
 
